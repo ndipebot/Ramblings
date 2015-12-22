@@ -1,4 +1,4 @@
-(define (start-hanoi total tower1 tower2 tower3)
+(define (start-hanoi tower1)
 ;;TUPLE ABSTRACTION FOR PRINTING
 (define (make-tupe name values)
   (list name values))
@@ -21,7 +21,7 @@
 (define (print-tupe-first tuple)
   (display (caadr tuple)))
 
-(define (append-tupe values tuple)
+(define (append-tupe values tuple)sd
   (make-tupe (car tuple) (append values (cadr tuple))))
 
 
@@ -31,7 +31,7 @@
   (print-tupe-first from)
   (display " FROM ")
   (print-tupe-name from)
-  (display " TO ")
+  (display " TO ")`
   (print-tupe-name to)
   (newline))
 
@@ -47,5 +47,12 @@
                 (make-tupe (car to) (append (tail-tupe from (1- n)) (tupe-values to)))
                 (make-tupe (car from) '())))))
 
+(define (count n)
+  (define (count-iter n counter)
+   (cond ((null? n) counter)
+         (else (count-iter (cdr n)
+                           (1+ counter)))))
+  (count-iter n 0))
 
-  (hanoi total (make-tupe "TOWER1" tower1) (make-tupe "TOWER3" tower3) (make-tupe "TOWER2" tower2)))
+
+  (hanoi (count tower1) (make-tupe "TOWER1" tower1) (make-tupe "TOWER3" '()) (make-tupe "TOWER2" '())))

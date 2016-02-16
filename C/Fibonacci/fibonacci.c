@@ -26,19 +26,25 @@ uintmax_t fibon_faster(int n){
 }
 
 // 0(logn)
-uintmax_t fibon_fastest(int n, uintmax_t a, uintmax_t b, int p, int q) {
-    
-    if(n == 1 || n==2)
-        return b;
-    else {
+uintmax_t fibon_fastest(int n) {
+    int p = 0; int q = 1; uintmax_t a = 1; uintmax_t b = 1;
+  
+    while(n > 2) {
         if (n % 2 == 0) {
-            int temp = p;
+            int temp_p = p;
             p = p*p + q*q;
-            q = q*q + 2*q*temp;
-            return fibon_fastest(n/2, p*a + q*b, p*b+q*a+q*b, p, q);
+            q = q*q + 2*q*temp_p;
+
+            n = n / 2;
         } else
-            return fibon_fastest(n-1, p*a + q*b, p*b+q*a+q*b, p, q);
+            n = n - 1;
+
+        uintmax_t temp_a  = a;
+        a = p*a + q*b;
+        b = p*b + q*temp_a + q*b;
     }
+    
+    return b;
 }
 
 
@@ -57,7 +63,7 @@ int main(int argc, char* argv[]) {
     else if (option == 1)
         fib = fibon_faster(n);
     else
-        fib = fibon_fastest(n, 1, 1, 0, 1);
+        fib = fibon_fastest(n);
 
     
 

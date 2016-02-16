@@ -1,9 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <inttypes.h>
 
 // 0(2^(n/2))
-uintmax_t fibon_slow(int n) {
+unsigned long long fibon_slow(int n) {
     if(n == 1 || n == 2)
         return 1;
     else
@@ -11,12 +10,12 @@ uintmax_t fibon_slow(int n) {
 }
 
 // O(n)
-uintmax_t fibon_faster(int n){
-    uintmax_t a = 1;
-    uintmax_t b = 1;
+unsigned long long fibon_faster(int n){
+    unsigned long long a = 1;
+    unsigned long long b = 1;
 
     for (int i = 2; i < n; ++i) {
-        uintmax_t temp = a;
+        unsigned long long temp = a;
         a = b;
         b = temp+b;
     }
@@ -26,8 +25,8 @@ uintmax_t fibon_faster(int n){
 }
 
 // 0(logn)
-uintmax_t fibon_fastest(int n) {
-    int p = 0; int q = 1; uintmax_t a = 1; uintmax_t b = 1;
+unsigned long long fibon_fastest(int n) {
+    int p = 0; int q = 1; unsigned long long a = 1; unsigned long long b = 1;
   
     while(n > 2) {
         if (n % 2 == 0) {
@@ -39,7 +38,7 @@ uintmax_t fibon_fastest(int n) {
         } else
             n = n - 1;
 
-        uintmax_t temp_a  = a;
+        unsigned long long temp_a  = a;
         a = p*a + q*b;
         b = p*b + q*temp_a + q*b;
     }
@@ -57,7 +56,7 @@ int main(int argc, char* argv[]) {
     int  option = atoi(argv[2]);
 
 
-    uintmax_t fib;
+    unsigned long long fib;
     if (option == 0)
         fib = fibon_slow(n);
     else if (option == 1)
@@ -66,8 +65,7 @@ int main(int argc, char* argv[]) {
         fib = fibon_fastest(n);
 
     
-
-    printf("%ju\n", fib);
+    printf("%llu\n", fib);
 
     return 0;
 }
